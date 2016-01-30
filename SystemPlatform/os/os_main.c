@@ -14,12 +14,13 @@
 
 void os_init(void)
 {
-	os_ui_init();
 	os_sys_tick_init();
-	char number[11] = {1,2,3,4,5,6,90,192,168,0,1};
+	os_ui_init();
+	os_print("TEMPERATURA\0");
+	//char number[11] = {1,2,3,4,5,6,90,192,168,0,1};
 	// num_to_string_hex(os_get_tick(), number);
-	os_print(number);
-	os_delay_us(100);	
-	num_to_string_hex(os_get_tick(), number);
-	os_print(number);
+	//os_print(number);
+	//os_delay_us(100);	
+	//num_to_string_hex(os_get_tick(), number);
+	//os_print(number);
 }

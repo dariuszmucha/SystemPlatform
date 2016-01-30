@@ -7,6 +7,7 @@
 
 #include "os_ui.h"
 #include "libuart.h"
+#include "libn5110.h"
 
 typedef struct {
 	os_printfcn printfcn;
@@ -17,9 +18,9 @@ static ui_inputs_t ui_inputs;
 
 void os_ui_init(void)
 {
-	USART_Init(baudrate_9600);
-	ui_inputs.printfcn = USART_Transmit_String;
-	ui_inputs.scanfcn = USART_Receive;
+	N5110_Init();
+	ui_inputs.printfcn = N5110_Print;
+	ui_inputs.scanfcn = 0;
 }
 
 void os_print(const char* s)
@@ -30,5 +31,10 @@ void os_print(const char* s)
 
 char os_scan(void)
 {
-	return ui_inputs.scanfcn();
+	if(ui_inputs.scanfcn != 0)
+	{
+		return ui_inputs.scanfcn();
+	}
+	
+	return 0;
 }
