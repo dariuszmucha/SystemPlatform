@@ -52,3 +52,14 @@ Temporary Items
 .map
 .o
 .srec
+*.d
+*.o
+*.elf
+*.eep
+*.srec
+SystemPlatform/Release/Makefile
+SystemPlatform/Debug/Makefile
+*.hex
+*.map
+*.mk
+*.lss
