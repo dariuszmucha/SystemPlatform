@@ -17,11 +17,6 @@ void os_init(void)
 {
 	os_sys_tick_init();
 	os_ui_init();
-	n5110_therm_display_temp(1);
-	//char number[11] = {1,2,3,4,5,6,90,192,168,0,1};
-	// num_to_string_hex(os_get_tick(), number);
-	//os_print(number);
-	//os_delay_us(100);	
-	//num_to_string_hex(os_get_tick(), number);
-	//os_print(number);
+	n5110_therm_display_temp(24);
+	n5110_therm_display_humid(51);
 }
