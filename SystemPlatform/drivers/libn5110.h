@@ -11,12 +11,10 @@
 #include <avr/io.h>
 #include <inttypes.h>
 
-/* 10 - sce - PB2
-8 - rst - PB0
-9 - d/c - PB1
-*/
+#define N5110_PIXEL_HEIGHT		48
+#define N5110_PIXEL_WIDTH		84
 
-#define N5110_RST		PB0	
+#define N5110_RST		PB0
 #define N5110_DC		PB1
 #define N5110_SCE		PB2
 
@@ -26,5 +24,7 @@
 void N5110_Init(void);
 
 void N5110_Print(const char *c);
+
+void N5110_Transfer_Buf(const uint8_t *data, uint16_t buff_size);
 
 #endif /* LIBN5110_H_ */

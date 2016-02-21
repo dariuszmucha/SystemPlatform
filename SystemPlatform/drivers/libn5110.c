@@ -10,10 +10,15 @@
 #include "os_delay.h"
 #include "os_hal.h"
 
-#define N5110_FONT_HEIGHT	8
-#define N5110_FONT_WIDTH	6
-#define N5110_LINES			48 / N5110_FONT_HEIGHT
-#define N5110_CHAR_PER_LINE	84 / N5110_FONT_WIDTH
+#define N5110_FONT_HEIGHT		8
+#define N5110_FONT_WIDTH		6
+#define N5110_LINES				N5110_PIXEL_HEIGHT / N5110_FONT_HEIGHT
+#define N5110_CHAR_PER_LINE		N5110_PIXEL_WIDTH / N5110_FONT_WIDTH
+
+typedef enum {
+	n5110_command,
+	n5110_data
+} n5110_data_command_t;
 
 static const uint8_t font_table[][N5110_FONT_WIDTH] = {
 	{0x00, 0x00, 0x00, 0x00, 0x00, 0x00},		// NULL
@@ -71,6 +76,18 @@ static void N5110_clear(void)
 	}
 }
 
+static void N5110_datacommand_change(n5110_data_command_t setting)
+{
+	if(setting == n5110_command)
+	{
+		N5110_PINS_SET &= ~(1 << N5110_DC);
+	}
+	else if(setting == n5110_data)
+	{
+		N5110_PINS_SET |= (1 << N5110_DC);
+	}
+}
+
 void N5110_Init(void)
 {
 	N5110_PINS_OUT |= (1 << N5110_RST) | (1 << N5110_DC) | (1 << N5110_SCE);
@@ -90,9 +107,20 @@ void N5110_Init(void)
 	N5110_clear();
 }
 
+void N5110_Transfer_Buf(const uint8_t *data, uint16_t buff_size)
+{
+	uint16_t i = 0;
+	N5110_datacommand_change(n5110_data);
+	
+	for(i = 0; i < buff_size; i++)
+	{
+		SPI_MasterTransmit(data[i]);
+	}
+}
+
 void N5110_Print(const char *data)
 {
-	N5110_PINS_SET |= (1 << N5110_DC);
+	N5110_datacommand_change(n5110_data);
 	uint8_t i = 0;
 	uint8_t j = 0;
 	while(data[i] != 0)

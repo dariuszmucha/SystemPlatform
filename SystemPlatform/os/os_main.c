@@ -11,12 +11,13 @@
 #include "os_sys_tick.h"
 #include "os_delay.h"
 #include "num_to_string.h"
+#include "n5110_therm_display.h"
 
 void os_init(void)
 {
 	os_sys_tick_init();
 	os_ui_init();
-	os_print("TEMPERATURA\0");
+	n5110_therm_display_temp(1);
 	//char number[11] = {1,2,3,4,5,6,90,192,168,0,1};
 	// num_to_string_hex(os_get_tick(), number);
 	//os_print(number);
