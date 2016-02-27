@@ -91,7 +91,7 @@ static void N5110_datacommand_change(n5110_data_command_t setting)
 void N5110_Init(void)
 {
 	N5110_PINS_OUT |= (1 << N5110_RST) | (1 << N5110_DC) | (1 << N5110_SCE);
-	SPI_MasterInit(spi_clock_div_4, 1);
+	SPI_MasterInit(spi_clock_div_16, 1);
 	N5110_PINS_SET &= ~(1 << N5110_RST) & ~(1 << N5110_DC) & ~(1 << N5110_SCE);
 	
 	os_delay_ms(1);

@@ -7,16 +7,20 @@
 
 #include "os_main.h"
 #include "os_defs.h"
-#include "os_ui.h"
 #include "os_sys_tick.h"
 #include "os_delay.h"
-#include "num_to_string.h"
 #include "n5110_therm_display.h"
+#include "libdht11.h"
 
 void os_init(void)
 {
 	os_sys_tick_init();
-	os_ui_init();
-	n5110_therm_display_temp(24);
-	n5110_therm_display_humid(51);
+	n5110_therm_init();
+	while(1)
+	{
+		dht11_update();
+		n5110_therm_display_temp(dht11_get_temp());
+		n5110_therm_display_humid(dht11_get_humidity());
+		os_delay_ms(5);
+	}
 }

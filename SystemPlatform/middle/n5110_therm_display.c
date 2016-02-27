@@ -56,8 +56,6 @@ void n5110_therm_display_temp(uint8_t temperature)
 	digits[0] = temperature / 10;
 	digits[1] = temperature % 10;
 	
-	dht11_update();
-	
 	n5110_draw(n5110_numbers[digits[0]], position); 
 	position[0]++;
 	n5110_draw(n5110_numbers[digits[1]], position);

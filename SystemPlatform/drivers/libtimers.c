@@ -29,7 +29,7 @@ ISR(TIMER2_OVF_vect)
 static void timer_0_init(timer_prescaler_t prescaler)
 {
 	TCCR0B |= prescaler;
-	OCR0A = 16;
+	OCR0A = 160;
 	TIMSK0 |= (1 << OCIE0A);
 	TCNT0 = 0;
 }
